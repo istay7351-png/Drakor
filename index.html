@@ -2,85 +2,37 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DRAKOR + LIVE YOUTUBE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VTube Drakor - Tanpa Iklan</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
-body{background:#0f1115;color:#fff;padding:10px}
-.top{background:linear-gradient(90deg,#ff0000,#ff2d95);padding:16px;border-radius:12px;text-align:center}
-.box{background:#1a1d24;padding:14px;border-radius:12px;margin-top:10px;border:1px solid #333}
-input,textarea,select{width:100%;padding:12px;border-radius:8px;border:none;background:#0f1115;color:#fff;margin-top:8px}
-button{width:100%;padding:14px;margin-top:8px;border:none;border-radius:10px;font-weight:bold;font-size:15px}
-.ytBtn{background:#ff0000;color:#fff}
-.liveBtn{background:#ff0000;color:#fff;border:2px solid #fff;box-shadow:0 0 15px #ff0000}
-.trBtn{background:#00c3ff;color:#000}
-.voiceBtn{background:#00ff88;color:#000}
-iframe{width:100%;height:230px;border:none;border-radius:12px;margin-top:10px;background:#000}
-.subBox{background:#000;color:#ffcc00;font-size:20px;font-weight:bold;text-align:center;padding:14px;border-radius:10px;margin-top:10px;min-height:60px;border:2px solid #ffcc00}
-.list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.list button{background:#2a2a2a;color:#fff;font-size:13px;padding:12px}
-.liveDot{width:10px;height:10px;background:#ff0000;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-@keyframes blink{50%{opacity:0}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0f0f0f;color:white}
+header{background:#ff0000;padding:12px 15px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:99}
+.logo{font-size:22px;font-weight:bold}
+.logo span{color:#ffcc00}
+.search{flex:1;background:#222;border:none;padding:9px 12px;border-radius:20px;color:white;outline:none}
+.top-btn{background:#ffcc00;border:none;padding:8px 12px;border-radius:20px;font-weight:bold;cursor:pointer}
+.count{padding:12px 15px;font-size:13px;color:#aaa}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 20px}
+.card{background:#1a1a1a;border-radius:12px;overflow:hidden}
+.card img{width:100%;height:180px;object-fit:cover;cursor:pointer}
+.card-body{padding:10px}
+.card-title{font-weight:bold;font-size:14px;line-height:1.3}
+.card-sub{font-size:11px;color:#aaa;margin:5px 0}
+.badge{background:#ff0000;font-size:9px;padding:2px 6px;border-radius:10px;color:white}
+.delete-btn{background:#ff0000;color:white;border:none;padding:7px 10px;border-radius:15px;font-size:11px;font-weight:bold;cursor:pointer;margin-top:6px}
+.edit-btn{background:#ffcc00;color:black;border:none;padding:7px 10px;border-radius:15px;font-size:11px;font-weight:bold;cursor:pointer;margin-top:6px;margin-left:5px}
+.player{position:fixed;top:0;left:0;right:0;bottom:0;background:black;z-index:999;display:none;flex-direction:column}
+.player video{width:100%;flex:1;background:black}
+.player-top{padding:12px;display:flex;justify-content:space-between;align-items:center;background:#000}
+.close-btn{background:#ff0000;color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
+.add-box{padding:12px;background:#1a1a1a;margin:0 12px 15px;border-radius:12px}
+.add-box input{width:100%;padding:10px;margin:5px 0;border-radius:10px;border:none;background:#222;color:white;outline:none}
+.add-box button{width:100%;background:#ffcc00;padding:10px;border:none;border-radius:10px;font-weight:bold;margin-top:5px}
 </style>
 </head>
 <body>
-<div class="top"><h1>🎬 DRAKOR</h1><p>YOUTUBE + LIVE + TRANSLATE KOREA → INDO</p></div>
 
-<div class="box" style="border:2px solid #ff0000">
-<h3><span class="liveDot"></span> 🔴 LIVE YOUTUBE - PENCET LANGSUNG MASUK!</h3>
-<p style="font-size:12px;color:#aaa">Live gak bisa diputer di dalam web bro, YouTube nge-blok! Jadi pencet tombol ini, langsung kebuka di YouTube!</p>
-<button class="liveBtn" onclick="bukaLive('drakor live')">🔴 LIVE DRAKOR SEKARANG</button>
-<button class="liveBtn" onclick="bukaLive('korean drama live')">🔴 LIVE KOREAN DRAMA</button>
-<button class="liveBtn" onclick="bukaLive('KBS live')">📺 LIVE KBS - TV KOREA</button>
-<button class="liveBtn" onclick="bukaLive('SBS live korea')">📺 LIVE SBS - TV KOREA</button>
-<button class="liveBtn" onclick="bukaLive('MBC live korea')">📺 LIVE MBC - TV KOREA</button>
-<button style="background:#fff;color:#000" onclick="window.open('https://www.youtube.com/live','_blank')">🔴 BUKA SEMUA LIVE DI YOUTUBE</button>
-<div style="font-size:11px;color:#ffcc00;margin-top:8px">Kalau di HP, nanti kebuka Aplikasi YouTube-nya langsung bro! Tinggal nonton!</div>
-</div>
-
-<div class="box">
-<h3>🔍 CARI DRAKOR - VIDEO BIASA</h3>
-<input id="cari" placeholder="Ketik judul Drakor...">
-<button class="ytBtn" onclick="cariYT()">🔍 CARI VIDEO</button>
-<div id="playerBox"></div>
-<div style="font-size:11px;color:#aaa;margin-top:6px">Ini buat video biasa bro, bukan Live. Video biasa bisa diputer di sini!</div>
-</div>
-
-<div class="box" style="border:2px solid #00c3ff">
-<h3>🌐 TRANSLATE SUARA - KOREA → INDONESIA</h3>
-<textarea id="teksAsli" rows="2" placeholder="Ketik ucapan Korea... contoh: 사랑해"></textarea>
-<button class="trBtn" onclick="translateTeks()">🌐 TRANSLATE + TAMPIL DI LAYAR</button>
-<div id="subLayar" class="subBox">💬 Tulisan Indonesia muncul di sini...</div>
-<button class="voiceBtn" onclick="bicaraIndo()">🔊 NGOMONG SUARA INDONESIA</button>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
-<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('사랑해')">❤️ 사랑해 = Aku Cinta Kamu</button>
-<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('보고 싶어')">🥺 보고 싶어 = Kangen Kamu</button>
-</div>
-</div>
-
-<div class="box">
-<h3>🔥 DRAKOR TINGGAL PENCET</h3>
-<div class="list">
-<button onclick="playDrakor('Queen of Tears sub indo')">👑 Queen of Tears</button>
-<button onclick="playDrakor('My Demon sub indo')">😈 My Demon</button>
-<button onclick="playDrakor('Vincenzo sub indo')">⚖️ Vincenzo</button>
-<button onclick="playDrakor('Crash Landing on You sub indo')">🪂 Crash Landing</button>
-</div>
-</div>
-
-<script>
-let kamus = {"사랑해":"Aku cinta kamu","보고 싶어":"Aku kangen kamu","괜찮아":"Gak apa-apa"};
-let hasilTerakhir = "";
-function bukaLive(q){
-  // Ini triknya bro: sp=EgJAAQ itu filter LIVE di YouTube!
-  let url = 'https://www.youtube.com/results?search_query='+encodeURIComponent(q)+'&sp=EgJAAQ%253D%253D';
-  window.open(url,'_blank');
-}
-function cariYT(){ let q=document.getElementById('cari').value||"drakor sub indo"; document.getElementById('playerBox').innerHTML='<iframe src="https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(q)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'; }
-function playDrakor(j){ document.getElementById('cari').value=j; cariYT(); window.scrollTo(0,0); }
-function contoh(t){ document.getElementById('teksAsli').value=t; translateTeks(); }
-function translateTeks(){ let t=document.getElementById('teksAsli').value.trim(); if(!t){alert("Ketik dulu bro!");return;} if(kamus[t]){hasilTerakhir=kamus[t];} else {hasilTerakhir=t; window.open('https://translate.google.com/?sl=ko&tl=id&text='+encodeURIComponent(t)+'&op=translate','_blank');} document.getElementById('subLayar').innerHTML="🇰🇷 "+t+"<br>🇮🇩 <span style='color:#fff'>"+hasilTerakhir+"</span>"; bicaraIndo(); }
-function bicaraIndo(){ if(!hasilTerakhir) hasilTerakhir=document.getElementById('teksAsli').value; if(!hasilTerakhir) return; let u=new SpeechSynthesisUtterance(hasilTerakhir); u.lang='id-ID'; speechSynthesis.cancel(); speechSynthesis.speak(u); }
-</script>
-</body>
-  </html>
+<header>
+<div class="logo">V<span>Tube</span></div>
+<input class="search" id="cari" placeholder="C
