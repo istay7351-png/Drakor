@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DRAKOR + TRANSLATE SUARA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+body{background:#0f1115;color:#fff;padding:10px}
+.top{background:linear-gradient(90deg,#ff0000,#ff2d95);padding:16px;border-radius:12px;text-align:center}
+.box{background:#1a1d24;padding:14px;border-radius:12px;margin-top:10px;border:1px solid #333}
+input,textarea,select{width:100%;padding:12px;border-radius:8px;border:none;background:#0f1115;color:#fff;margin-top:8px}
+button{width:100%;padding:14px;margin-top:8px;border:none;border-radius:10px;font-weight:bold;font-size:15px}
+.ytBtn{background:#ff0000;color:#fff}
+.trBtn{background:#00c3ff;color:#000}
+.voiceBtn{background:#00ff88;color:#000}
+iframe{width:100%;height:230px;border:none;border-radius:12px;margin-top:10px;background:#000}
+.subBox{background:#000;color:#ffcc00;font-size:20px;font-weight:bold;text-align:center;padding:14px;border-radius:10px;margin-top:10px;min-height:60px;border:2px solid #ffcc00}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.list button{background:#2a2a2a;color:#fff;font-size:13px;padding:12px}
+</style>
+</head>
+<body>
+<div class="top"><h1>🎬 DRAKOR</h1><p>YOUTUBE + TRANSLATE SUARA KOREA → INDO</p></div>
+
+<div class="box">
+<h3>🔍 CARI DRAKOR</h3>
+<input id="cari" placeholder="Ketik judul Drakor...">
+<button class="ytBtn" onclick="cariYT()">🔍 CARI + BUFFER</button>
+<div id="playerBox"></div>
+<div style="font-size:11px;color:#aaa;margin-top:6px">Subtitle YouTube: Di video > CC > ⚙️ > Terjemahkan Otomatis > Bahasa Indonesia</div>
+</div>
+
+<div class="box" style="border:2px solid #00c3ff">
+<h3>🌐 TRANSLATE SUARA - KOREA → INDONESIA</h3>
+<select id="dari"><option value="ko">Korea 🇰🇷</option><option value="en">Inggris 🇺🇸</option><option value="ja">Jepang 🇯🇵</option><option value="zh-CN">China 🇨🇳</option></select>
+<textarea id="teksAsli" rows="2" placeholder="Ketik ucapan Korea... contoh: 사랑해"></textarea>
+<button class="trBtn" onclick="translateTeks()">🌐 TRANSLATE + TAMPIL DI LAYAR</button>
+<div id="subLayar" class="subBox">💬 Tulisan Indonesia muncul di sini...</div>
+<button class="voiceBtn" onclick="bicaraIndo()">🔊 NGOMONG SUARA INDONESIA</button>
+<button style="background:#fff" onclick="bicaraKorea()">🇰🇷 DENGERIN SUARA KOREA ASLI</button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('사랑해')">❤️ 사랑해 = Aku Cinta Kamu</button>
+<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('괜찮아')">😊 괜찮아 = Gak Apa-Apa</button>
+<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('보고 싶어')">🥺 보고 싶어 = Kangen Kamu</button>
+<button class="trBtn" style="padding:10px;font-size:12px" onclick="contoh('밥 먹었어?')">🍚 밥 먹었어? = Udah Makan?</button>
+</div>
+<button style="background:#ff2d95;color:#fff" onclick="bukaGoogleTranslate()">🌐 GOOGLE TRANSLATE SUARA - MIC 🎤</button>
+</div>
+
+<div class="box">
+<h3>🔥 DRAKOR TINGGAL PENCET</h3>
+<div class="list">
+<button onclick="playDrakor('Queen of Tears sub indo')">👑 Queen of Tears</button>
+<button onclick="playDrakor('My Demon sub indo')">😈 My Demon</button>
+<button onclick="playDrakor('Vincenzo sub indo')">⚖️ Vincenzo</button>
+<button onclick="playDrakor('Crash Landing on You sub indo')">🪂 Crash Landing</button>
+<button onclick="playDrakor('Business Proposal sub indo')">💼 Business Proposal</button>
+<button onclick="playDrakor('King the Land sub indo')">👑 King The Land</button>
+</div>
+</div>
+
+<script>
+let kamus = {"사랑해":"Aku cinta kamu","괜찮아":"Gak apa-apa, tenang aja","보고 싶어":"Aku kangen kamu","밥 먹었어?":"Kamu udah makan?","안녕하세요":"Halo, selamat pagi","감사합니다":"Terima kasih banyak","미안해":"Maaf ya","잘 자":"Selamat tidur"};
+let hasilTerakhir = "";
+function cariYT(){ let q=document.getElementById('cari').value||"drakor sub indo"; document.getElementById('playerBox').innerHTML='<iframe src="https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(q)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'; }
+function playDrakor(j){ document.getElementById('cari').value=j; cariYT(); window.scrollTo(0,0); }
+function contoh(t){ document.getElementById('teksAsli').value=t; translateTeks(); }
+function translateTeks(){ let t=document.getElementById('teksAsli').value.trim(); if(!t){alert("Ketik dulu bro!");return;} if(kamus[t]){hasilTerakhir=kamus[t];} else {hasilTerakhir=t; window.open('https://translate.google.com/?sl='+document.getElementById('dari').value+'&tl=id&text='+encodeURIComponent(t)+'&op=translate','_blank');} document.getElementById('subLayar').innerHTML="🇰🇷 "+t+"<br>🇮🇩 <span style='color:#fff'>"+hasilTerakhir+"</span>"; bicaraIndo(); }
+function bicaraIndo(){ if(!hasilTerakhir) hasilTerakhir=document.getElementById('teksAsli').value; if(!hasilTerakhir) return; let u=new SpeechSynthesisUtterance(hasilTerakhir); u.lang='id-ID'; u.rate=0.9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+function bicaraKorea(){ let t=document.getElementById('teksAsli').value; if(!t) return; let u=new SpeechSynthesisUtterance(t); u.lang='ko-KR'; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+function bukaGoogleTranslate(){ window.open('https://translate.google.com/?sl=ko&tl=id&op=translate','_blank'); }
+</script>
+</body>
+  </html>
